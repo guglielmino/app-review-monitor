@@ -1,0 +1,4 @@
+{"ok":true,"result":[{"update_id":784049091,
+  "message":{"message_id":2,"from":{"id":19915021,"first_name":"Fabrizio","last_name":"Guglielmino","username":"guglielmino"},"chat":{"id":19915021,"first_name":"Fabrizio","last_name":"Guglielmino","username":"guglielmino","type":"private"},"date":1458245313,"text":"prova"}},{"update_id":784049092,
+  "message":{"message_id":3,"from":{"id":19915021,"first_name":"Fabrizio","last_name":"Guglielmino","username":"guglielmino"},"chat":{"id":19915021,"first_name":"Fabrizio","last_name":"Guglielmino","username":"guglielmino","type":"private"},"date":1458245314,"text":"test"}},{"update_id":784049093,
+  "message":{"message_id":4,"from":{"id":19915021,"first_name":"Fabrizio","last_name":"Guglielmino","username":"guglielmino"},"chat":{"id":19915021,"first_name":"Fabrizio","last_name":"Guglielmino","username":"guglielmino","type":"private"},"date":1458245315,"text":"OI"}}]}
