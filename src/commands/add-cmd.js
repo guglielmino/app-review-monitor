@@ -7,7 +7,7 @@ export default class AddCommand {
     this.appsProvider = appsProvider;
   }
 
-  execute(chat, ...params) {
+  execute(state, ...params) {
     let appId = 0;
     let appName = '';
     
@@ -18,7 +18,7 @@ export default class AddCommand {
     }
 
     this.telegram.sendMessage({
-      chat_id: chat.id,
+      chat_id: state.chat.id,
       text: `Added ${appId} to reviews monitor`,
       parse_mode: 'Markdown'
     });
@@ -26,11 +26,14 @@ export default class AddCommand {
 
     this.appsProvider
       .save({
-        chat_id: chat.id,
-        username: chat.username,
+        chat_id: state.chat.id,
+        username: state.chat.username,
         appId: appId,
-        appName: appName
+        appName: appName,
+        lang: state.lang
        });
+    
+    return null;
   }
 
 }

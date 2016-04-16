@@ -166,12 +166,13 @@ export default class LangCommand {
     this.userProvider = userProvider;
   }
 
-  execute(chat, ...params) {
+  execute(state, ...params) {
     let appId = 0;
     let appName = '';
+    let langCode = null;
 
-    if (params.length > 0) {
-      const langCode = params[0][0].toUpperCase();
+    if (params.length > 0 && params[0][0]) {
+      langCode = params[0][0].toUpperCase();
 
       let message = '';
       const langItem  = appStoreLanguages.find(item => item.code === langCode);
@@ -180,7 +181,7 @@ export default class LangCommand {
         message = `Store language set to *${langItem.description}*`;
 
         this.userProvider
-          .updateLang(chat.username, langCode);
+          .updateLang(state.chat.username, langCode);
       }
       else {
         message = '*Wrong language code*\nUse one of\n';
@@ -191,10 +192,12 @@ export default class LangCommand {
 
 
       this.telegram.sendMessage({
-        chat_id: chat.id,
+        chat_id: state.chat.id,
         text: message,
         parse_mode: 'Markdown'
       });
     }
+    
+    return { lang: langCode};
   }
 }

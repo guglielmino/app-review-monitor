@@ -8,8 +8,8 @@ class Scraper {
     this._request = request;
   }
 
-  getAppReviewsByAppId(appId) {
-    const url = `https://itunes.apple.com/rss/customerreviews/id=${appId}/sortBy=mostRecent/json`;
+  getAppReviewsByAppId(appId, country) {
+    const url = `https://itunes.apple.com/${country}/rss/customerreviews/id=${appId}/sortBy=mostRecent/json`;
     return this._request(url)
       .then((res) => {
         let data = JSON.parse(res.body);
@@ -26,8 +26,8 @@ class Scraper {
       });
   }
 
-  searchApp(term, limit = 10) {
-    const url = `https://itunes.apple.com/search?term=${term}&entity=software&limit=${limit}`;
+  searchApp(term, country, limit = 10) {
+    const url = `https://itunes.apple.com/search?term=${term}&country=${country}&entity=software&limit=${limit}`;
 
     return this._request(url)
       .then((res) => {

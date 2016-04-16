@@ -7,10 +7,10 @@ export default class ListCommand {
     this.appsProvider = appsProvider;
   }
 
-  execute(chat, ...params) {
-
+  execute(state, ...params) {
+console.log("LIST" + JSON.stringify(state.chat.username));
     this.appsProvider
-      .getApps(chat.username)
+      .getApps(state.chat.username)
       .then((res) => {
         let message = 'No Apps registered for monitoring';
 
@@ -22,11 +22,13 @@ export default class ListCommand {
         }
 
         this.telegram.sendMessage({
-          chat_id: chat.id,
+          chat_id: state.chat.id,
           text: message,
           parse_mode: 'Markdown'
         });
       });
+    
+    return null;
   }
 
 }

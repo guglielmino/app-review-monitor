@@ -7,19 +7,30 @@ export default class SearchCommand {
     this.scraper = scraper;
   }
 
-  execute(chat, ...params) {
+  execute(state, ...params) {
     let term = '';
     if (params.length > 0)
-      term = params[0];
+      term = params[0].join(' ');;
+    
+    if(!state.lang) {
+      this.telegram.sendMessage({
+        chat_id: state.chat.id,
+        text: `Besfore searching set the language\nuse */lang {country code}*\n for example /lang US for United State store`,
+        parse_mode: 'Markdown'
+      });
 
-    this.telegram.sendChatAction(chat.id, 'typing');
+      return null;
+    }
 
-    this.scraper.searchApp(term)
+    console.log("Searching for " + term);
+    this.telegram.sendChatAction(state.chat.id, 'typing');
+
+    this.scraper.searchApp(term, state.lang)
       .then((res) => {
 
         if (res.resultCount === 0) {
           this.telegram.sendMessage({
-            chat_id: chat.id,
+            chat_id: state.chat.id,
             text: `No App found`
           });
         }
@@ -32,7 +43,7 @@ export default class SearchCommand {
           });
 
           this.telegram.sendMessage({
-            chat_id: chat.id,
+            chat_id: state.chat.id,
             text: `Choose the App to monitor`,
             parse_mode: 'Markdown',
             reply_markup: reply_markup

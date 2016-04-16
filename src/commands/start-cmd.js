@@ -19,15 +19,17 @@ export default class StartCommand {
     this.userProvider = userProvider;
   }
 
-  execute(chat, ...params) {
+  execute(state, ...params) {
 
     this.userProvider
-      .save(chat);
+      .save(state.chat);
 
     this.telegram.sendMessage({
-      chat_id: chat.id,
+      chat_id: state.chat.id,
       text: welcomeText,
       parse_mode: 'Markdown'
     });
+    
+    return null;
   }
 }

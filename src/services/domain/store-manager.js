@@ -31,7 +31,7 @@ export default class StoreManager {
           res.forEach((item) => {
             console.log(`Getting review for ${item.appName}`);
             this.scraper
-              .getAppReviewsByAppId(item.appId)
+              .getAppReviewsByAppId(item.appId, item.lang)
               .then((res) => {
                 if (res) {
                   let authors = res.filter(value => value.hasOwnProperty('author'));
