@@ -15,7 +15,7 @@ export default class SearchCommand {
     if(!state.lang) {
       this.telegram.sendMessage({
         chat_id: state.chat.id,
-        text: `Besfore searching set the language\nuse */lang {country code}*\n for example /lang US for United State store`,
+        text: `Before searching set the language\nuse */lang {country code}*\n for example /lang US for United State store`,
         parse_mode: 'Markdown'
       });
 

@@ -1,5 +1,6 @@
 'use strict';
 
+import logger from './services/logger';
 import Koa from 'koa';
 import config from './config';
 import Promise from 'bluebird';
@@ -28,7 +29,7 @@ const storageProvider = new StorageProvider(config);
 
 (async() => {
   app.listen(config.server.port, () => {
-    console.log(`App started on port ${config.server.port} with environment ${config.env}`);
+    logger.info(`App started on port ${config.server.port} with environment ${config.env}`);
   });
 })();
 
@@ -55,12 +56,18 @@ storageProvider
 
     let lastupdateId = 0;
 
-    sched.schedule(() => {
-      telegram.getUpdates(lastupdateId, 100, 1000)
-        .then((res) => {
-          lastupdateId = chatter.processRequest(res);
-        });
-    }, 1000);
+    if (!config.telegram.webhook_url) {
+      sched.schedule(() => {
+        telegram.getUpdates(lastupdateId, 100, 1000)
+          .then((res) => {
+            lastupdateId = chatter.processRequest(res);
+          });
+      }, 1000);
+    }
+    else {
+      logger.debug("WebHook");
+      //telegram.setWebhook('')
+    }
 
     const storeManager = new StoreManager(storageProvider.appsProvider, scraper);
     storeManager.start();
