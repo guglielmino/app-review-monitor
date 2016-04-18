@@ -2,7 +2,7 @@
 
 import Promise from 'bluebird';
 
-class Scraper {
+export default class Scraper {
 
   constructor(request) {
     this._request = request;
@@ -36,5 +36,3 @@ class Scraper {
       });
   }
 }
-
-module.exports = Scraper;

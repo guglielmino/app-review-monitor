@@ -8,7 +8,7 @@ export default class ListCommand {
   }
 
   execute(state, ...params) {
-console.log("LIST" + JSON.stringify(state.chat.username));
+console.log("LIST " + JSON.stringify(state.chat.username) + " id " + state.chat.id);
     this.appsProvider
       .getApps(state.chat.username)
       .then((res) => {

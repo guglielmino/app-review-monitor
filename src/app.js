@@ -69,7 +69,7 @@ storageProvider
       //telegram.setWebhook('')
     }
 
-    const storeManager = new StoreManager(storageProvider.appsProvider, scraper);
+    const storeManager = new StoreManager(storageProvider.appsProvider, scraper, telegram);
     storeManager.start();
   });
 
