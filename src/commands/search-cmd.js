@@ -22,7 +22,6 @@ export default class SearchCommand {
       return null;
     }
 
-    console.log("Searching for " + term);
     this.telegram.sendChatAction(state.chat.id, 'typing');
 
     this.scraper.searchApp(term, state.lang)

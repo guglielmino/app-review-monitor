@@ -8,7 +8,6 @@ export default class ListCommand {
   }
 
   execute(state, ...params) {
-console.log("LIST " + JSON.stringify(state.chat.username) + " id " + state.chat.id);
     this.appsProvider
       .getApps(state.chat.username)
       .then((res) => {
@@ -20,6 +19,7 @@ console.log("LIST " + JSON.stringify(state.chat.username) + " id " + state.chat.
             message += `*${item.appName}*\n/remove ${item.appId}\n`;
           });
         }
+
 
         this.telegram.sendMessage({
           chat_id: state.chat.id,

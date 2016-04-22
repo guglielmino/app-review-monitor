@@ -9,6 +9,10 @@ export default class StorageProvider {
   }
 
   connect(config) {
+    if (!config.mongo.uri) {
+      throw Error("MongoDB connection not configured, set MONGO_URI env variable");
+    }
+
     return new Promise((resolve, reject) => {
       MongoClient.connect(config.mongo.uri, (err, db) => {
         if (err) {

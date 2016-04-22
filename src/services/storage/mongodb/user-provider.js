@@ -34,7 +34,6 @@ export default class UserProvider {
         if (err) {
           reject(err);
         }
-        console.log("Username " + usename);
         col.updateOne({ username: usename }, { $set: { lang: langCode } }, (err, r) => {
           console.log("updateOne " + JSON.stringify(r));
           if (err) {

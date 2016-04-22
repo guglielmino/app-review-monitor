@@ -1,0 +1,13 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "strict": 0,
+    "comma-dangle": [2, "never"],
+    "eol-last": 1, // enforce newline at the end of file, with no multiple empty lines
+    "no-param-reassign": [2, { "props": false }]
+  },
+  "extends": "airbnb/base"
+}

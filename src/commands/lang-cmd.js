@@ -177,7 +177,6 @@ export default class LangCommand {
       let message = '';
       const langItem  = appStoreLanguages.find(item => item.code === langCode);
       if (langItem) {
-        console.log("item " + JSON.stringify(langItem));
         message = `Store language set to *${langItem.description}*`;
 
         this.userProvider

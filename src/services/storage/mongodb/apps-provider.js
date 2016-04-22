@@ -74,5 +74,23 @@ export default class AppsProvider {
     });
   }
 
+  updateApp(appId, updates) {
+    return new Promise((resolve, reject) => {
+      this.db.collection(COLLECTION_NAME, (err, col) => {
+        if (err) {
+          reject(err);
+        }
 
+        col.updateOne({ appId: appId},
+          { $set: updates },
+          (err, r) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(r);
+          }
+        });
+      });
+    });
+  }
 }
