@@ -59,9 +59,11 @@ storageProvider
 			sched.schedule(() => {
 				telegram.getUpdates(lastupdateId, 100, 1000)
 					.then((res) => {
-						res.result.forEach((request) => {
-							lastupdateId = chatter.processRequest(request);
-						});
+						if (res.result) {
+							res.result.forEach((request) => {
+								lastupdateId = chatter.processRequest(request);
+							});
+						}
 					})
 					.catch((error) => {
 						logger.error("getUpdates " + error);

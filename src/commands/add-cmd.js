@@ -15,6 +15,15 @@ export default class AddCommand {
       appId = params[0][0];
       params[0].shift();
       appName = params[0].join(' ');
+      appName = appName.slice(1, appName.length - 1);
+    }
+    else {
+      this.telegram.sendMessage({
+        chat_id: state.chat.id,
+        text: `Use */add AppId_to_monitor`,
+        parse_mode: 'Markdown'
+      });
+      return null;
     }
 
     this.telegram.sendMessage({
