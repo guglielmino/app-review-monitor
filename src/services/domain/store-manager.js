@@ -63,6 +63,9 @@ export default class StoreManager {
 										}
 									}
 								}
+							})
+							.catch((err) => {
+								console.log(err);
 							});
 					});
 				}

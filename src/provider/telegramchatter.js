@@ -34,7 +34,7 @@ class TelegramChatter {
 				}
 			}
 			else{
-				logger.debug("Unrecognized command " + JSON.stringify(request));
+				this.logger.debug("Unrecognized command " + JSON.stringify(request));
 			}
 		}
 

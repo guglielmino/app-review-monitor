@@ -80,7 +80,7 @@ storageProvider
 		storeManager.start();
 	})
 	.catch((reason) => {
-		logger.error(reason);
+		console.log(reason);
 		throw Error(reason);
 	});
 

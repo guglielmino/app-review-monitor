@@ -12,8 +12,13 @@ export default class Scraper {
     const url = `https://itunes.apple.com/${country}/rss/customerreviews/id=${appId}/sortBy=mostRecent/json`;
     return this._request(url)
       .then((res) => {
-        let data = JSON.parse(res.body);
-        return Promise.resolve(data.feed.entry);
+        try {
+          let data = JSON.parse(res.body);
+          return Promise.resolve(data.feed.entry);
+        }
+        catch(err) {
+          return Promise.reject(err);
+        }
       });
   }
 
