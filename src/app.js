@@ -19,6 +19,7 @@ import AddCommand from './commands/add-cmd';
 import RemoveCommand from './commands/remove-cmd';
 import ListCommand from './commands/list-cmd';
 import LangCommand from './commands/lang-cmd';
+import HelpCommand from './commands/help-cmd';
 
 import StorageProvider from './services/storage/mongodb';
 import StoreManager from './services/domain/store-manager';
@@ -45,6 +46,7 @@ storageProvider
 		const removeCommand = new RemoveCommand(telegram, storageProvider.appsProvider);
 		const listCommand = new ListCommand(telegram, storageProvider.appsProvider);
 		const langCommand = new LangCommand(telegram, storageProvider.usersProvider);
+		const helpCommand = new HelpCommand(telegram);
 
 		chatter.addCommand('/start', startCommand);
 		chatter.addCommand('/search', searchCommand);
@@ -52,6 +54,7 @@ storageProvider
 		chatter.addCommand('/remove', removeCommand);
 		chatter.addCommand('/list', listCommand);
 		chatter.addCommand('/lang', langCommand);
+		chatter.addCommand('/help', helpCommand);
 
 		let lastupdateId = 0;
 

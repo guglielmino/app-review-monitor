@@ -8,7 +8,7 @@ be updated by the bot\n\n\
 /list - get your app list\n\
 /add - add a new app to monitor\n\
 /remove - remove an app from monitoring\n\n\
-Beforse start set the code for the store You want to use\n\
+Before starting set the code for the store You want to use\n\
 for example: /lang US (for United State store)";
 
 
