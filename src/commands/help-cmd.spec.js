@@ -17,7 +17,7 @@ describe('HelpCommand', ()=> {
 		command = new HelpCommand(telegram);
 	});
 
-	it('Should emit help phrase', () => {
+	it('Should emit help phrase when called', () => {
 		const helpMessage = '/search \"name\" - search for apps by name\n\
 /list - get apps You are monitoring\n\
 /add - add a new app to monitor\n\
