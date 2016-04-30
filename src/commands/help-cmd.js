@@ -12,7 +12,7 @@ export default class HelpCommand {
 	}
 
 	execute(state, ...params) {
-		telegram.sendMessage({
+		this.telegram.sendMessage({
 			chat_id: state.chat.id,
 			text: helpMessage,
 			parse_mode: 'Markdown'
