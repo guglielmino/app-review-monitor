@@ -10,7 +10,7 @@ export default class SearchCommand {
   execute(state, ...params) {
     let term = '';
     if (params.length > 0)
-      term = params[0].join(' ');;
+      term = params[0].join(' ');
     
     if(!state.lang) {
       this.telegram.sendMessage({
@@ -38,8 +38,8 @@ export default class SearchCommand {
           let reply_markup = '';
           res.results.forEach((item) => {
             keys.push([`/add ${item.trackId} (${item.trackName})`]);
-            reply_markup = { keyboard: keys, resize_keyboard: true, one_time_keyboard: true };
           });
+          reply_markup = { keyboard: keys, resize_keyboard: true, one_time_keyboard: true };
 
           this.telegram.sendMessage({
             chat_id: state.chat.id,

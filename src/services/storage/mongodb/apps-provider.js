@@ -61,14 +61,30 @@ export default class AppsProvider {
           reject(err);
         }
 
-        col.remove({ username: data.username, appId: data.appId }, {safe: true}, (error, res) => {
-
+        col.remove({ username: data.username, appId: data.appId }, { safe: true }, (error, res) => {
           if (error) {
             reject(error);
           } else {
             resolve(res);
           }
+        });
+      });
+    });
+  }
 
+  removeOrphans() {
+    return new Promise((resolve, reject) => {
+      this.db.collection(COLLECTION_NAME, (err, col) => {
+        if (err) {
+          reject(err);
+        }
+
+        col.remove({ username: null }, { safe: true }, (error, res) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(res);
+          }
         });
       });
     });

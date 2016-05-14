@@ -37,12 +37,14 @@ export default class ListCommand {
 					message = 'No App monitored, search for Apps and add them to monitoring';
 				}
 
-				this.telegram.sendMessage({
+				const callParam = {
 					chat_id: state.chat.id,
 					text: message,
 					parse_mode: 'Markdown',
 					reply_markup: reply_markup
-				});
+				};
+
+				this.telegram.sendMessage(callParam);
 			})
 			.catch((err) => {
 				this.telegram.sendMessage({

@@ -24,51 +24,56 @@ export default class StoreManager {
 	}
 
 	_timerFunc() {
+
 		this.appsProvider
-			.getAllApps()
-			.then((apps) => {
-				if (apps && apps.length > 0) {
-					apps.forEach((app) => {
-						this.scraper
-							.getAppReviewsByAppId(app.appId, app.lang)
-							.then((res) => {
-								if (res && res.length > 0) {
-									let authors = res.filter(value => value.hasOwnProperty('author'));
+			.removeOrphans()
+			.then((res) => {
+				this.appsProvider
+					.getAllApps()
+					.then((apps) => {
+						if (apps && apps.length > 0) {
+							apps.forEach((app) => {
+								this.scraper
+									.getAppReviewsByAppId(app.appId, app.lang)
+									.then((res) => {
+										if (res && res.length > 0) {
+											let authors = res.filter(value => value.hasOwnProperty('author'));
 
-									let reviews = authors.slice(0, Math.min(3, authors.length));
-									let read_ids = reviews.map(i => i.id.label);
-									console.log(`read ${JSON.stringify(read_ids)} app ${JSON.stringify(app.last_review_ids)}`)
-									if (!app.last_review_ids || reviews.map(i => i.id.label)
-											.filter(x =>  app.last_review_ids.indexOf(x) >= 0)
-											.length == 0) {
-										this._messageFactory(app.chat_id, `Reviews for *${app.appName}*`);
-										let message = '';
-										// array with review shown
-										let review_ids = [];
+											let reviews = authors.slice(0, Math.min(3, authors.length));
+											let read_ids = reviews.map(i => i.id.label);
+											console.log(`read ${JSON.stringify(read_ids)} app ${JSON.stringify(app.last_review_ids)}`)
+											if (!app.last_review_ids || reviews.map(i => i.id.label)
+													.filter(x => app.last_review_ids.indexOf(x) >= 0)
+													.length == 0) {
+												this._messageFactory(app.chat_id, `Reviews for *${app.appName}*`);
+												let message = '';
+												// array with review shown
+												let review_ids = [];
 
-										reviews.forEach((item) => {
-											const rating = '⭐️'.repeat(Number.parseInt(item['im:rating'].label));
+												reviews.forEach((item) => {
+													const rating = '⭐️'.repeat(Number.parseInt(item['im:rating'].label));
 
-											review_ids.push(item.id.label);
+													review_ids.push(item.id.label);
 
-											message = `*${item['author'].name.label}* ${rating}\n_${item.title.label}_ \n${item.content.label}`;
-											this._messageFactory(app.chat_id, message);
-										});
+													message = `*${item['author'].name.label}* ${rating}\n_${item.title.label}_ \n${item.content.label}`;
+													this._messageFactory(app.chat_id, message);
+												});
 
-										if (authors.length > 0) {
-											this.appsProvider
-												.updateApp(app.appId, {lastreviewId: authors[0].id.label});
-											this.appsProvider
-												.updateApp(app.appId, {last_review_ids: review_ids});
+												if (authors.length > 0) {
+													this.appsProvider
+														.updateApp(app.appId, {lastreviewId: authors[0].id.label});
+													this.appsProvider
+														.updateApp(app.appId, {last_review_ids: review_ids});
+												}
+											}
 										}
-									}
-								}
-							})
-							.catch((err) => {
-								console.log(err);
+									})
+									.catch((err) => {
+										console.log(err);
+									});
 							});
+						}
 					});
-				}
 			});
 	}
 
